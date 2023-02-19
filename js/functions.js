@@ -18,7 +18,7 @@ isPalindrome('ДовОд'); // true
 const getNumbersFromString = (string) => {
   let stringNumber = '';
   string = string.replaceAll(' ', '');
-  for (let i = 0; i < string.length - 1; i++) {
+  for (let i = 0; i < string.length; i++) {
     if (!isNaN(+string[i])) {
       stringNumber += string[i];
     }
