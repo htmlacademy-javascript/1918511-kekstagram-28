@@ -1,7 +1,7 @@
 const ID_ARRAY = [];
 const IMG_ARRAY = [];
 const MESSAGE_ID_ARRAY = [];
-const SIMILAR_POSTS_COUNT = 25;
+// const SIMILAR_POSTS_COUNT = 25;
 
 const NAMES = [
   'Иван Иванов',
@@ -68,6 +68,7 @@ const generatePost = () => ({
   likes: getRandomInteger(15, 200),
   comments: [generateComment()]
 });
+generatePost();
 
 // Создание 25 постов
-const similarPosts = Array.from({length: SIMILAR_POSTS_COUNT}, generatePost);
+// const similarPosts = Array.from({length: SIMILAR_POSTS_COUNT}, generatePost);
