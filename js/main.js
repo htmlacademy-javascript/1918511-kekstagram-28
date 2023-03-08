@@ -1,4 +1,1 @@
-import { createSimilarPosts } from './data.js';
-createSimilarPosts();
-
-// console.log(createSimilarPosts());
+import './thumbnail-render.js';

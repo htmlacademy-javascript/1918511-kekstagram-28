@@ -8,14 +8,11 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-// Проверяю существует ли такой элемент в массиве
-const isExisted = (array, element) => array.includes(element);
-
-// Создаю новое уникальное значение.
-const generateUniqueId = (min, max, arr) => {
-  for (let i = min; i <= max; i++) {
+// Генерирую новое значение и проверяю чтобы оно былу уникальным. Fixed: 07.03.2023
+const generateUniqueId = (min, max , arr) => {
+  while (min <= max) {
     const random = getRandomInteger(min, max);
-    if (!isExisted(arr, random)) {
+    if (!arr.includes(random)) {
       arr.push(random);
       return random;
     }
