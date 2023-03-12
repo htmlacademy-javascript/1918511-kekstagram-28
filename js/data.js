@@ -45,7 +45,8 @@ const generatePost = () => ({
   url: `photos/${generateUniqueId(1, 25, IMG_ARRAY)}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInteger(15, 200),
-  comments: [generateComment()]
+  // comments: [generateComment()]
+  comments: Array.from({length: getRandomInteger(1, 40)}, generateComment)
 });
 
 // Создание 25 постов

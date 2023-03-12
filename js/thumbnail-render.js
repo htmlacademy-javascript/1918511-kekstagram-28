@@ -1,5 +1,5 @@
 import { createSimilarPosts } from './data.js';
-import { showFullPictrue } from './bigpic-popup.js';
+import { showFullPicture } from './big-pic-popup.js';
 
 const pictureTemplateElement = document.querySelector('#picture')
   .content
@@ -18,7 +18,7 @@ similarPosts.forEach(({url, likes, comments, description}) => {
 
   pictureElement.addEventListener('click', (evt) => {
     evt.preventDefault();
-    showFullPictrue(url, likes, comments, description);
+    showFullPicture(url, likes, comments, description);
   }
   );
 

@@ -1,5 +1,8 @@
 import { isEscapeKey } from './keydown-check.js';
 
+const COMMENTS_SHOW_DEFAULT = 5;
+let shownComments = [];
+
 const bodyElement = document.querySelector('body');
 
 const popupElement = document.querySelector('.big-picture');
@@ -16,8 +19,8 @@ const commentsLoaderBlockElement = document.querySelector('.comments-loader');
 
 const cancelCrossElement = popupElement.querySelector('#picture-cancel');
 
-// Создание комментария
-const createFullPictureComment = (commentsData) => {
+// Создание комментариев
+const createFullPictureComments = (commentsData) => {
   commentsData.forEach(({avatar, name, message}) => {
     const comment = singleCommentElement.cloneNode(true);
 
@@ -26,19 +29,52 @@ const createFullPictureComment = (commentsData) => {
     comment.querySelector('.social__text').textContent = message;
 
     commentsListElement.append(comment);
-
   });
+
 };
 
+// Показ 5 комментариев
+const showCommentsByDefault = (comments) => {
+  const shownCommentsByDefault = comments.slice(0, COMMENTS_SHOW_DEFAULT);
 
-const showFullPictrue = (url, likes, comments, description) => {
+  createFullPictureComments(shownCommentsByDefault);
+  commentCountBlockElement.textContent =
+   `${shownCommentsByDefault.length} из ${comments.length} комментариев`;
+
+  if (shownCommentsByDefault.length >= comments.length) {
+    commentsLoaderBlockElement.classList.add('hidden');
+  }
+
+};
+
+// Отрисовка еще 5 комментариев
+const renderMoreComments = () => {
+  const additionalCommentsToShow = shownComments
+    .slice(commentsListElement.children.length, commentsListElement.children.length + 5);
+
+  createFullPictureComments(additionalCommentsToShow);
+  commentCountBlockElement.textContent =
+   `${commentsListElement.children.length} из ${shownComments.length} комментариев`;
+
+  if (shownComments.length <= commentsListElement.children.length) {
+    commentsLoaderBlockElement.classList.add('hidden');
+  }
+
+};
+
+const showFullPicture = (url, likes, comments, description) => {
   openUserModal();
+
   bigPictureElement.querySelector('img').src = url;
   likesCountElement.textContent = likes;
   commentsCountElement.textContent = comments.length;
   photoDescriptionElement.textContent = description;
+
   commentsListElement.innerHTML = '';
-  createFullPictureComment(comments);
+
+  shownComments = comments;
+  commentsLoaderBlockElement.addEventListener('click', renderMoreComments);
+  showCommentsByDefault(comments);
 
 };
 
@@ -53,22 +89,18 @@ function openUserModal() {
   popupElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
-  // Temporary
-  commentCountBlockElement.classList.add('hidden');
-  commentsLoaderBlockElement.classList.add('hidden');
 }
 
 function closeUserModal() {
   popupElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
-  // Temporary
-  commentCountBlockElement.classList.remove('hidden');
   commentsLoaderBlockElement.classList.remove('hidden');
+  commentsLoaderBlockElement.removeEventListener('click', renderMoreComments);
 }
 
 cancelCrossElement.addEventListener('click', () =>
   closeUserModal()
 );
 
-export { showFullPictrue };
+export { showFullPicture };
