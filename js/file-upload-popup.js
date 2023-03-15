@@ -46,7 +46,7 @@ function closeUserModal() {
   imgUploadPopupElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
-
+  imgInputElement.value = '';
 }
 
 
