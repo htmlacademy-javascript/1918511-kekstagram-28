@@ -18,20 +18,17 @@ const hashtagPristine = new Pristine(uploadForm, {
   errorTextClass: 'text__hashtags-error',
 });
 
-function validateHashtag(text) {
-  return HASHTAG_REGEX.test(text) || text === '';
+const validateHashtag = (text) => HASHTAG_REGEX.test(text) || text === '';
 
-}
 
-function validateHashtagCount(text) {
-  return text
+const validateHashtagCount = (text) =>
+  text
     .split('')
     .filter((tag) => tag === '#')
     .length <= MAX_HASHTAG_COUNT;
 
-}
 
-function validateSimilarHashtags(text) {
+const validateSimilarHashtags = (text) => {
   const textArray = text
     .replaceAll(' ','')
     .toLowerCase()
@@ -42,7 +39,7 @@ function validateSimilarHashtags(text) {
 
   return textArray.length === unique.length;
 
-}
+};
 
 // Валидатор правильности хештега
 hashtagPristine.addValidator(
@@ -65,8 +62,8 @@ hashtagPristine.addValidator(
   'Ошибка! Одинаковые хештеги!'
 );
 
-uploadForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
+uploadForm.addEventListener('submit', () => {
+  // evt.preventDefault();
   hashtagPristine.validate();
 
 });
