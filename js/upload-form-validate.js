@@ -6,9 +6,9 @@ const MAX_HASHTAG_COUNT = 5;
 const uploadForm = document.querySelector('.img-upload__form');
 
 const hashtagFieldElement = uploadForm.querySelector('.text__hashtags');
-const commentFiledElement = uploadForm.querySelector('.text__description');
+const commentFieldElement = uploadForm.querySelector('.text__description');
 
-// .img-upload__field-wrapper
+// .img-eldoad__field-wrapper
 const hashtagPristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'form__item--invalid',
@@ -76,7 +76,7 @@ hashtagFieldElement.addEventListener('keydown', (evt) => {
   }
 });
 
-commentFiledElement.addEventListener('keydown', (evt) => {
+commentFieldElement.addEventListener('keydown', (evt) => {
   if (isEscapeKey(evt)) {
     evt.stopPropagation();
     document.activeElement.blur();
