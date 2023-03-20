@@ -1,14 +1,15 @@
 import { isEscapeKey } from './keydown-check.js';
+import { sendData } from './load-api.js';
+import { createError , createSuccess } from './util.js';
+import { closeUserUploadModal, bodyElement, hashtagFieldElement, commentFieldElement } from './file-upload-popup.js';
 
 const HASHTAG_REGEX = /#[a-zа-яё0-9]{1,19}$/i; //g v konce
 const MAX_HASHTAG_COUNT = 5;
 
 const uploadForm = document.querySelector('.img-upload__form');
 
-const hashtagFieldElement = uploadForm.querySelector('.text__hashtags');
-const commentFieldElement = uploadForm.querySelector('.text__description');
+const submitButtonElement = uploadForm.querySelector('#upload-submit');
 
-// .img-eldoad__field-wrapper
 const hashtagPristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'form__item--invalid',
@@ -62,11 +63,44 @@ hashtagPristine.addValidator(
   'Ошибка! Одинаковые хештеги!'
 );
 
-uploadForm.addEventListener('submit', () => {
-  // evt.preventDefault();
-  hashtagPristine.validate();
+const blockSubmitButton = () => {
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = 'Публикую...';
 
-});
+};
+
+const unblockSubmitButton = () => {
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = 'Опубликовать';
+
+};
+
+const setUserFormSubmit = (onSuccess) => {
+  uploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    hashtagPristine.validate();
+    const isValid = hashtagPristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess();
+          blockSubmitButton();
+          createSuccess();
+          bodyElement.classList.add('modal-open');
+        },
+        () => {
+          createError();
+          unblockSubmitButton();
+          bodyElement.classList.add('modal-open');
+        },
+        new FormData(evt.target),
+        unblockSubmitButton
+      );
+    }
+
+  });
+};
 
 // При первичном нажатии ESC убирает фокус с элемента, при повторном (без фокуса) работает как обычно
 hashtagFieldElement.addEventListener('keydown', (evt) => {
@@ -82,3 +116,6 @@ commentFieldElement.addEventListener('keydown', (evt) => {
     document.activeElement.blur();
   }
 });
+
+setUserFormSubmit(closeUserUploadModal);
+
