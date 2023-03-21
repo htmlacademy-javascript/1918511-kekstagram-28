@@ -1,3 +1,5 @@
+import { showGlobalAlert } from './alert.js';
+
 const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
 const Routes = {
   GET_DATA: '/data',
@@ -10,7 +12,13 @@ const Methods = {
 
 const getData = (onSuccess) => {
   fetch(`${BASE_URL}${Routes.GET_DATA}`)
-    .then((response) => response.json())
+    .then((response) => {
+      if(response.ok) {
+        return response.json();
+      }
+      showGlobalAlert(`Ошибка! Код:${response.status}`);
+    }
+    )
     .then((photos) => {
       onSuccess(photos);
     });
@@ -27,11 +35,11 @@ const sendData = (onSuccess, onFail, body, finalSubmit) => {
       if (response.ok) {
         onSuccess();
       } else {
-        onFail('Не Удалось отправить форму');
+        onFail();
       }
     })
     .catch(() => {
-      onFail('Не удалось отправить форму 2');
+      onFail();
     })
     .finally(() => {
       finalSubmit();
