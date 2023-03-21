@@ -11,6 +11,9 @@ const effectsRadioElements = document.querySelectorAll('.effects__radio');
 const sliderElement = document.querySelector('.effect-level__slider');
 const sliderDataElement = document.querySelector('.effect-level__value');
 
+const SCALE_VALUE_STEP = 25;
+const MIN_SCALE_VALUE = 25;
+const MAX_SCALE_VALUE = 100;
 const EFFECTS_DATA = {
   'chrome': {
     filter: 'grayscale',
@@ -42,9 +45,9 @@ const EFFECTS_DATA = {
 // Масштаб изображения
 scaleSmallerElement.addEventListener('click', () => {
   let value = parseInt(currentValueElement.value, 10);
-  value -= 25;
-  if (value <= 25) {
-    value = 25;
+  value -= SCALE_VALUE_STEP;
+  if (value <= MIN_SCALE_VALUE) {
+    value = MIN_SCALE_VALUE;
   }
   imgElement.style.transform = `scale(${value / 100})`;
   currentValueElement.value = `${value}%`;
@@ -53,9 +56,9 @@ scaleSmallerElement.addEventListener('click', () => {
 
 scaleBiggerElement.addEventListener('click', () => {
   let value = parseInt(currentValueElement.value, 10);
-  value += 25;
-  if (value >= 100) {
-    value = 100;
+  value += SCALE_VALUE_STEP;
+  if (value >= MAX_SCALE_VALUE) {
+    value = MAX_SCALE_VALUE;
   }
   imgElement.style.transform = `scale(${value / 100})`;
   currentValueElement.value = `${value}%`;
