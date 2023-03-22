@@ -1,16 +1,5 @@
 import { imgPreviewElement, sliderEffectValueElement } from './file-upload-popup.js';
 
-const scaleSmallerElement = document.querySelector('.scale__control--smaller');
-const scaleBiggerElement = document.querySelector('.scale__control--bigger');
-const currentValueElement = document.querySelector('.scale__control--value');
-
-const imgElement = imgPreviewElement.querySelector('img');
-const effectsRadioElements = document.querySelectorAll('.effects__radio');
-
-// slider
-const sliderElement = document.querySelector('.effect-level__slider');
-const sliderDataElement = document.querySelector('.effect-level__value');
-
 const SCALE_VALUE_STEP = 25;
 const MIN_SCALE_VALUE = 25;
 const MAX_SCALE_VALUE = 100;
@@ -41,6 +30,16 @@ const EFFECTS_DATA = {
   }
 
 };
+
+const scaleSmallerElement = document.querySelector('.scale__control--smaller');
+const scaleBiggerElement = document.querySelector('.scale__control--bigger');
+const currentValueElement = document.querySelector('.scale__control--value');
+
+const imgElement = imgPreviewElement.querySelector('img');
+const effectsRadioElements = document.querySelectorAll('.effects__radio');
+
+const sliderElement = document.querySelector('.effect-level__slider');
+const sliderDataElement = document.querySelector('.effect-level__value');
 
 // Масштаб изображения
 scaleSmallerElement.addEventListener('click', () => {

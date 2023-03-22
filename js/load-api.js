@@ -49,5 +49,4 @@ const sendData = (onSuccess, onFail, body, finalSubmit) => {
     });
 };
 
-
 export {getData, sendData};

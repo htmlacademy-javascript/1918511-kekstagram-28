@@ -47,7 +47,6 @@ const makeButtonActive = (evt) => {
 
 };
 
-
 const switchPhotosByFilter = (posts, evt) => {
   if (evt.target.classList.contains('img-filters__button')) {
     document.querySelectorAll('.picture').forEach((pic) => {
@@ -76,7 +75,6 @@ const switchPhotosByFilter = (posts, evt) => {
       renderSimilarPosts(photosList);
       break;
   }
-
 
 };
 

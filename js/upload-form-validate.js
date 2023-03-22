@@ -3,7 +3,7 @@ import { sendData } from './load-api.js';
 import { createError , createSuccess } from './util.js';
 import { closeUserUploadModal, bodyElement, hashtagFieldElement, commentFieldElement } from './file-upload-popup.js';
 
-const HASHTAG_REGEX = /#[a-zа-яё0-9]{1,19}$/i; //g v konce
+const HASHTAG_REGEX = /#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG_COUNT = 5;
 
 const uploadForm = document.querySelector('.img-upload__form');
@@ -13,7 +13,6 @@ const submitButtonElement = uploadForm.querySelector('#upload-submit');
 const hashtagPristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'form__item--invalid',
-  // successClass: 'form__item--valid',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextTag: 'div',
   errorTextClass: 'text__hashtags-error',
@@ -21,13 +20,11 @@ const hashtagPristine = new Pristine(uploadForm, {
 
 const validateHashtag = (text) => HASHTAG_REGEX.test(text) || text === '';
 
-
 const validateHashtagCount = (text) =>
   text
     .split('')
     .filter((tag) => tag === '#')
     .length <= MAX_HASHTAG_COUNT;
-
 
 const validateSimilarHashtags = (text) => {
   const textArray = text

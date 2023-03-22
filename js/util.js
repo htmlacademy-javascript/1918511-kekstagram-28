@@ -5,26 +5,6 @@ import { isEscapeKey } from './keydown-check.js';
 const errorElement = document.querySelector('#error').content;
 const successElement = document.querySelector('#success').content;
 
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-
-// Генерирую новое значение и проверяю чтобы оно былу уникальным.
-const generateUniqueId = (min, max , arr) => {
-  while (min <= max) {
-    const random = getRandomInteger(min, max);
-    if (!arr.includes(random)) {
-      arr.push(random);
-      return random;
-    }
-  }
-};
-
 // Создание окна ошибки
 const createError = () => {
   const errorClone = errorElement.querySelector('section').cloneNode(true);
@@ -108,9 +88,6 @@ const shuffleArray = (array) => {
   return newArray;
 };
 
-// Функция взята из интернета и доработана
-// Источник - https://www.freecodecamp.org/news/javascript-debounce-example
-
 const debounce = (callback, timeoutDelay) => {
   let timeoutId;
 
@@ -120,29 +97,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-// Функция взята из интернета и доработана
-// Источник - https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_throttle
-
-const throttle = (callback, delayBetweenFrames) => {
-  // Используем замыкания, чтобы время "последнего кадра" навсегда приклеилось
-  // к возвращаемой функции с условием, тогда мы его сможем перезаписывать
-  let lastTime = 0;
-
-  return (...rest) => {
-    // Получаем текущую дату в миллисекундах,
-    // чтобы можно было в дальнейшем
-    // вычислять разницу между кадрами
-    const now = new Date();
-
-    // Если время между кадрами больше задержки,
-    // вызываем наш колбэк и перезаписываем lastTime
-    // временем "последнего кадра"
-    if (now - lastTime >= delayBetweenFrames) {
-      callback.apply(this, rest);
-      lastTime = now;
-    }
-  };
-};
-
-
-export {getRandomInteger, getRandomArrayElement, generateUniqueId, createError, createSuccess, shuffleArray, debounce, throttle};
+export { createError, createSuccess, shuffleArray, debounce };

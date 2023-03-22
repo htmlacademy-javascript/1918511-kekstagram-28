@@ -5,10 +5,9 @@ const bodyElement = document.querySelector('body');
 const imgInputElement = document.querySelector('#upload-file');
 const imgUploadPopupElement = document.querySelector('.img-upload__overlay');
 const imgPreviewElement = document.querySelector('.img-upload__preview');
+const cancelCrossElement = document.querySelector('#upload-cancel');
 
 const smallImgsPreviewElement = document.querySelectorAll('.effects__preview');
-
-const cancelCrossElement = document.querySelector('#upload-cancel');
 
 const sliderEffectValueElement = document.querySelector('.img-upload__effect-level');
 const firstRadioElement = document.querySelector('.effects__radio');
@@ -70,6 +69,5 @@ function closeUserUploadModal() {
 cancelCrossElement.addEventListener('click', () =>
   closeUserUploadModal()
 );
-
 
 export { imgPreviewElement , sliderEffectValueElement, closeUserUploadModal, bodyElement, onDocumentKeydown, hashtagFieldElement, commentFieldElement };
