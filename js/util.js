@@ -5,26 +5,6 @@ import { isEscapeKey } from './keydown-check.js';
 const errorElement = document.querySelector('#error').content;
 const successElement = document.querySelector('#success').content;
 
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-
-// Генерирую новое значение и проверяю чтобы оно былу уникальным.
-const generateUniqueId = (min, max , arr) => {
-  while (min <= max) {
-    const random = getRandomInteger(min, max);
-    if (!arr.includes(random)) {
-      arr.push(random);
-      return random;
-    }
-  }
-};
-
 // Создание окна ошибки
 const createError = () => {
   const errorClone = errorElement.querySelector('section').cloneNode(true);
@@ -102,4 +82,19 @@ const createSuccess = () => {
   document.addEventListener('click', removeSuccessOutside);
 };
 
-export {getRandomInteger, getRandomArrayElement, generateUniqueId, createError, createSuccess};
+const shuffleArray = (array) => {
+  const newArray = array.slice();
+  newArray.sort(() => Math.random() - 0.5);
+  return newArray;
+};
+
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export { createError, createSuccess, shuffleArray, debounce };

@@ -1,5 +1,7 @@
 import { showGlobalAlert } from './alert.js';
 
+const filterElement = document.querySelector('.img-filters');
+
 const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
 const Routes = {
   GET_DATA: '/data',
@@ -14,6 +16,7 @@ const getData = (onSuccess) => {
   fetch(`${BASE_URL}${Routes.GET_DATA}`)
     .then((response) => {
       if(response.ok) {
+        filterElement.classList.remove('img-filters--inactive');
         return response.json();
       }
       showGlobalAlert(`Ошибка! Код:${response.status}`);
@@ -45,6 +48,5 @@ const sendData = (onSuccess, onFail, body, finalSubmit) => {
       finalSubmit();
     });
 };
-
 
 export {getData, sendData};
