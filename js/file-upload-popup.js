@@ -1,5 +1,7 @@
 import { isEscapeKey } from './keydown-check.js';
 
+const FILE_FORMATS = ['jpg', 'jpeg', 'png'];
+
 const bodyElement = document.querySelector('body');
 
 const imgInputElement = document.querySelector('#upload-file');
@@ -28,7 +30,13 @@ const displayImage = (image) => {
 imgInputElement.addEventListener('change',() => {
   openUserUploadModal();
   const file = imgInputElement.files[0];
-  displayImage(file);
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_FORMATS.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    displayImage(file);
+  }
 });
 
 const onDocumentKeydown = (evt) => {
