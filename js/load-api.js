@@ -1,7 +1,5 @@
 import { showGlobalAlert } from './alert.js';
 
-const filterElement = document.querySelector('.img-filters');
-
 const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
 const Routes = {
   GET_DATA: '/data',
@@ -11,6 +9,8 @@ const Methods = {
   GET: 'GET',
   POST: 'POST',
 };
+
+const filterElement = document.querySelector('.img-filters');
 
 const getData = (onSuccess) => {
   fetch(`${BASE_URL}${Routes.GET_DATA}`)
